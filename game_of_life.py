@@ -15,7 +15,9 @@
 
 import numpy
 
-matriz = numpy.zeros((4,4), dtype=numpy.int)
+TAMANHO_DA_MATRIZ = 4
+
+matriz = numpy.zeros((TAMANHO_DA_MATRIZ, TAMANHO_DA_MATRIZ), dtype=numpy.int)
 
 matriz[1][0] = 1
 matriz[1][1] = 1
@@ -25,14 +27,42 @@ print(matriz)
 for numero_da_linha, linha in enumerate(matriz):
     for numero_da_coluna, celula in enumerate(linha):
         vizinhos = []
-        vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-1])
-        vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-0])
-        vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna+1])
-        vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna-1])
-        vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna+1])
-        vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-1])
-        vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-0])
-        vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna+1])
+
+        #Se ele for da ponta:
+        if numero_da_linha == 0 and numero_da_coluna == 0:
+            vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna+1]) #Direita
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-0]) #S
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna+1]) #S direita
+        elif numero_da_linha == 0 and numero_da_coluna == TAMANHO_DA_MATRIZ-1:
+            vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna-1]) #Esquerda
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-1]) #S esquerda
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-0]) #S
+        elif numero_da_linha == TAMANHO_DA_MATRIZ-1 and numero_da_coluna == 0:
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-0]) #N
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna+1]) #N direita
+            vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna+1]) #Direita
+        elif numero_da_linha == TAMANHO_DA_MATRIZ-1 and numero_da_coluna == TAMANHO_DA_MATRIZ-1:
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-1]) #N esquerda
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-0]) #N
+            vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna-1]) #Esquerda
+
+        #Se ele for da parede e nao da ponta.
+        elif(
+            numero_da_linha == 0 or
+            numero_da_coluna == 0 or
+            numero_da_linha == TAMANHO_DA_MATRIZ-1 or
+            numero_da_coluna == TAMANHO_DA_MATRIZ-1
+        ): 
+            ...
+        else:
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-1]) #N esquerda
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-0]) #N
+            vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna+1]) #N direita
+            vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna-1]) #Esquerda
+            vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna+1]) #Direita
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-1]) #S esquerda
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-0]) #S
+            vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna+1]) #S direita
 
         print("linha:", numero_da_linha, "coluna:", numero_da_coluna)
         print(vizinhos)
