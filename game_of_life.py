@@ -22,9 +22,21 @@ matriz[1][1] = 1
 matriz[2][1] = 1
 print(matriz)
 
-for linha in matriz:
-    for celula in linha:
+for numero_da_linha, linha in enumerate(matriz):
+    for numero_da_coluna, celula in enumerate(linha):
         vizinhos = []
+        vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-1])
+        vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna-0])
+        vizinhos.append(matriz[numero_da_linha-1][numero_da_coluna+1])
+        vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna-1])
+        vizinhos.append(matriz[numero_da_linha-0][numero_da_coluna+1])
+        vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-1])
+        vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna-0])
+        vizinhos.append(matriz[numero_da_linha+1][numero_da_coluna+1])
+
+        print("linha:", numero_da_linha, "coluna:", numero_da_coluna)
+        print(vizinhos)
+        
         if celula == 0 and len(vizinhos) == 3:
             ... # recebe 1
         elif (celula == 1 and len(vizinhos) == 2) or (celula == 1 and len(vizinhos) == 3):
