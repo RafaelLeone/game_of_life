@@ -1,3 +1,6 @@
+import numpy
+
+
 # print('linhacoluna')
 # 0 com 3 vizinhos -> 1
 # 1 com 2 ou 3 vizinhos sobrevive
@@ -14,8 +17,6 @@
 # [2][0]: 1, [2][1]: 1, [2][2]: 0, [2][3]: 0
 # [3][0]: 0, [3][1]: 0, [3][2]: 0, [3][3]: 0
 
-import numpy
-
 TAMANHO_DA_MATRIZ = 4
 
 matriz = numpy.zeros((TAMANHO_DA_MATRIZ, TAMANHO_DA_MATRIZ), dtype=numpy.int)
@@ -30,6 +31,9 @@ print("tempo 0: ")
 print(matriz)
 
 #Dá pra fazer um for i in range NUMERO_DE_VEZES_QUE_QUERO_RODAR aqui...
+#Ou se o último tempo for igual ao penúltimo                     parar o programa
+#Ou se tudo ficar 0                                              parar o programa
+#Ou se o último  tempo repetir algum que já foi (guardar todes)  parar o programa
 for numero_da_linha, linha in enumerate(matriz):
     for numero_da_coluna, celula in enumerate(linha):
         vizinhos = []
@@ -103,6 +107,7 @@ for numero_da_linha, linha in enumerate(matriz):
             matriz[numero_da_linha][numero_da_coluna] = 0 # recebe 0
 
 print('\n')
-print("tempo 1: ") # Dá pra colocar o i aqui se fizer o for comentado da linha 32...
+print("tempo 1: ") # Dá pra colocar o i aqui se fizer o for comentado da linha 33...
 print(matriz)
 print('\n')
+# E botar um sleep aqui pra não aparecer tudo de uma vez.
