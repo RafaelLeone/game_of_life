@@ -14,12 +14,22 @@ function inicializa() {
         for (let coluna = 0; coluna < largura; coluna++) {
             // <span id="0-0" class="tile">P</span>
             let quadrado = document.createElement("div");
-            quadrado.innerText = 'oi'
+            quadrado.innerText = ''
             quadrado.id = linha.toString() + "-" + coluna.toString();
             quadrado.classList.add("quadrado");
             document.body.appendChild(quadrado)
         }
     }
+    let quadradoVivoInicial1 = document.getElementById("1-2")
+    quadradoVivoInicial1.classList.add("quadradoAmarelo")
+    let quadradoVivoInicial2 = document.getElementById("2-3")
+    quadradoVivoInicial2.classList.add("quadradoAmarelo")
+    let quadradoVivoInicial3 = document.getElementById("3-1")
+    quadradoVivoInicial3.classList.add("quadradoAmarelo")
+    let quadradoVivoInicial4 = document.getElementById("3-2")
+    quadradoVivoInicial4.classList.add("quadradoAmarelo")
+    let quadradoVivoInicial5 = document.getElementById("3-3")
+    quadradoVivoInicial5.classList.add("quadradoAmarelo")
 }
 </script>
 
@@ -43,8 +53,8 @@ body {
 .quadrado {
     /* Quadrado */
     border: 2px solid lightgray;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     margin: 2.5px;
 
     /* Texto */
@@ -54,5 +64,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.quadradoAmarelo {
+  background-color: yellow;
 }
 </style>
