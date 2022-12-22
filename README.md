@@ -1,8 +1,24 @@
-# game-of-life on VueJS
+# game-of-life
 
-`npm install -g @vue/cli`
-`vue create game-of-life`
-Pressione Enter (Default ([Vue 3] babel, eslint) deve estar selecionado por padrão.)
+## Project setup
+```
+npm install
+```
 
-`cd game-of-life`
-`npm run serve`
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
