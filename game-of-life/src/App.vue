@@ -4,21 +4,20 @@
 
 <script>
 window.onload = function(){
-    console.log("Oi")
-    intialize();
+    inicializa();
 }
-function intialize() {
-    const height = 10
-    const width = 10
+function inicializa() {
+    const altura = 10
+    const largura = 10
     // Create the game board
-    for (let r = 0; r < height; r++) {
-        for (let c = 0; c < width; c++) {
+    for (let linha = 0; linha < altura; linha++) {
+        for (let coluna = 0; coluna < largura; coluna++) {
             // <span id="0-0" class="tile">P</span>
-            let tile = document.createElement("div");
-            tile.innerText = 'oi'
-            tile.id = r.toString() + "-" + c.toString();
-            tile.classList.add("tile");
-            document.body.appendChild(tile)
+            let quadrado = document.createElement("div");
+            quadrado.innerText = 'oi'
+            quadrado.id = linha.toString() + "-" + coluna.toString();
+            quadrado.classList.add("quadrado");
+            document.body.appendChild(quadrado)
         }
     }
 }
@@ -41,14 +40,14 @@ body {
   color: #2c3e50;
   margin-top: 60px;
 }
-.tile {
-    /* Box */
+.quadrado {
+    /* Quadrado */
     border: 2px solid lightgray;
     width: 60px;
     height: 60px;
     margin: 2.5px;
 
-    /* Text */
+    /* Texto */
     color: black;
     font-size: 36px;
     font-weight: bold;
