@@ -1,0 +1,35 @@
+// .github/workflows/deploy.yaml
+name: deploy
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: setup git auth
+        env:
+          email: 'rinaciodacosta@gmail.com'
+          username: 'RafaelLeone'
+          access_token: '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'
+        run: |
+          git config --global credential.helper store
+          echo "https://${access_token}:x-oauth-basic@github.com" > ~/.git-credentials
+          git config --global user.email $email
+          git config --global user.name $username
+      - name: deploy to gh-pages
+        run: |
+          cd game-of-life
+          npm i
+          NODE_ENV=production npm run build
+          cd dist
+          git init
+          git add -A
+          git commit -m "🚀 Deploy id ${GITHUB_RUN_ID}"
+          git push -f "https://github.com/${GITHUB_REPOSITORY}.git" master:gh-pages
