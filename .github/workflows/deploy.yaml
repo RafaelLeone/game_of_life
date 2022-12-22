@@ -4,6 +4,8 @@ on:
     branches:
       - master
       - main
+permissions:
+  contents: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,6 +14,13 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
+      - name: setup git auth
+        env:
+          email: 'rinaciodacosta@gmail.com'
+          username: 'RafaelLeone'
+      - run: |
+          git config --global user.email $email
+          git config --global user.name $username
       - run: |
           cd game-of-life
           npm i
