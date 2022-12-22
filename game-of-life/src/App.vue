@@ -6,6 +6,10 @@
 window.onload = function(){
   inicializa();
 }
+
+var Pra0 = []
+var Pra1 = []
+
 async function inicializa() {
   const altura = 10
   const largura = 10
@@ -33,21 +37,22 @@ async function inicializa() {
 
   for (let linha = 0; linha < altura; linha++) {
     for (let coluna = 0; coluna < largura; coluna++) {
-      // let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`) // Era teste
+      let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`)
       const promise = new Promise((resolve) => {
         setTimeout(() => {
-          resolve(checaQuadrado(linha, coluna))
+          resolve(checaQuadrado(linha, coluna, quadradoAtual))
         }, 1000)
       })
       await promise.then(response => {
       console.log(response)
-    })
+      })
+    }
   }
 }
 
-function checaQuadrado(linha, coluna) {
+function checaQuadrado(linha, coluna, quadradoAtual) {
   let vizinhos = []
-  let numero_de_vizinhos_vivos = 0
+  let numeroDeVizinhosVivos = 0
   vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna-1).toString()}`)) // N esquerda
   vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna-0).toString()}`)) // N
   vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // N direita
@@ -56,21 +61,32 @@ function checaQuadrado(linha, coluna) {
   vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna-1).toString()}`)) // S esquerda
   vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna-0).toString()}`)) // S
   vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna+1).toString()}`)) // S direita
-  // quadradoAtual.innerText = 'Oi' // Era teste
+
+  // Vizinhos vivos:
   for (let vizinho of vizinhos) {
     /* eslint-disable no-debugger */
     // debugger
     /* eslint-enable no-debugger */
     if (vizinho != null) {
       if (vizinho.className === 'quadrado quadradoAmarelo'){
-        numero_de_vizinhos_vivos++
+        numeroDeVizinhosVivos++
       }
     }
-    // if (vizinho.classList === "quadrado quadradoAmarelo") {
-    //   numero_de_vizinhos_vivos ++
-    // }
   }
-  console.log(numero_de_vizinhos_vivos)
+
+  // Transformação:
+  if (quadradoAtual.className === 'quadrado' && numeroDeVizinhosVivos == 3) {
+    Pra1.push(`${linha}-${coluna}`)
+    // nova_matriz[linha][coluna] = quadradoAtual.classList.add("quadradoAmarelo") // recebe 1
+  } else if ((quadradoAtual.className === 'quadrado quadradoAmarelo' && numeroDeVizinhosVivos == 2) || (quadradoAtual.className === 'quadrado quadradoAmarelo' && numeroDeVizinhosVivos == 3)) {
+    Pra1.push(`${linha}-${coluna}`)
+    // nova_matriz[linha][coluna] = quadradoAtual.classList.add("quadradoAmarelo") // recebe 1
+  } else {
+    Pra0.push(`${linha}-${coluna}`)
+    // nova_matriz[linha][coluna] = quadradoAtual.classList.remove("quadradoAmarelo") // recebe 0
+  }
+  console.log("Pra0: " + Pra0) // toString()
+  console.log("Pra1: " + Pra1) // toString()
   return
 }
   // Esperado do tempo seguinte:
@@ -84,7 +100,6 @@ function checaQuadrado(linha, coluna) {
   //   let quadradoVivoInicial4 = document.getElementById("4-2")
   //   quadradoVivoInicial4.classList.add("quadradoAmarelo")
   // }, 3000);
-}
 </script>
 
 <style>
