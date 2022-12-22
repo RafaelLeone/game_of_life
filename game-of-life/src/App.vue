@@ -33,10 +33,10 @@ async function inicializa() {
 
   for (let linha = 0; linha < altura; linha++) {
     for (let coluna = 0; coluna < largura; coluna++) {
-      let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`)
+      // let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`) // Era teste
       const promise = new Promise((resolve) => {
         setTimeout(() => {
-          resolve(checaQuadrado(quadradoAtual));
+          resolve(checaQuadrado(linha, coluna));
         }, 1000)
       })
       await promise.then(response => {
@@ -45,11 +45,21 @@ async function inicializa() {
   }
 }
 
-function checaQuadrado(quadradoAtual) {
-  quadradoAtual.innerText = 'Oi'
+function checaQuadrado(linha, coluna) {
+  let arr = []
+  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna-1).toString()}`)) // N esquerda
+  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna-0).toString()}`)) // N
+  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // N direita
+  arr.push(document.getElementById(`${(linha-0).toString()}-${(coluna-1).toString()}`)) // Esquerda
+  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // Direita
+  arr.push(document.getElementById(`${(linha+1).toString()}-${(coluna-1).toString()}`)) // S esquerda
+  arr.push(document.getElementById(`${(linha+1).toString()}-${(coluna-0).toString()}`)) // S
+  arr.push(document.getElementById(`${(linha+1).toString()}-${(coluna+1).toString()}`)) // S direita
+  // quadradoAtual.innerText = 'Oi' // Era teste
+  console.log(arr)
   return
 }
-
+  // Esperado do tempo seguinte:
   // setTimeout(() => {
   //   let quadradoVivoInicial1 = document.getElementById("1-2")
   //   quadradoVivoInicial1.classList.remove("quadradoAmarelo")
