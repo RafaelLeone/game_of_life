@@ -36,27 +36,41 @@ async function inicializa() {
       // let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`) // Era teste
       const promise = new Promise((resolve) => {
         setTimeout(() => {
-          resolve(checaQuadrado(linha, coluna));
+          resolve(checaQuadrado(linha, coluna))
         }, 1000)
       })
       await promise.then(response => {
-      console.log(response);
+      console.log(response)
     })
   }
 }
 
 function checaQuadrado(linha, coluna) {
-  let arr = []
-  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna-1).toString()}`)) // N esquerda
-  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna-0).toString()}`)) // N
-  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // N direita
-  arr.push(document.getElementById(`${(linha-0).toString()}-${(coluna-1).toString()}`)) // Esquerda
-  arr.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // Direita
-  arr.push(document.getElementById(`${(linha+1).toString()}-${(coluna-1).toString()}`)) // S esquerda
-  arr.push(document.getElementById(`${(linha+1).toString()}-${(coluna-0).toString()}`)) // S
-  arr.push(document.getElementById(`${(linha+1).toString()}-${(coluna+1).toString()}`)) // S direita
+  let vizinhos = []
+  let numero_de_vizinhos_vivos = 0
+  vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna-1).toString()}`)) // N esquerda
+  vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna-0).toString()}`)) // N
+  vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // N direita
+  vizinhos.push(document.getElementById(`${(linha-0).toString()}-${(coluna-1).toString()}`)) // Esquerda
+  vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // Direita
+  vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna-1).toString()}`)) // S esquerda
+  vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna-0).toString()}`)) // S
+  vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna+1).toString()}`)) // S direita
   // quadradoAtual.innerText = 'Oi' // Era teste
-  console.log(arr)
+  for (let vizinho of vizinhos) {
+    /* eslint-disable no-debugger */
+    // debugger
+    /* eslint-enable no-debugger */
+    if (vizinho != null) {
+      if (vizinho.className === 'quadrado quadradoAmarelo'){
+        numero_de_vizinhos_vivos++
+      }
+    }
+    // if (vizinho.classList === "quadrado quadradoAmarelo") {
+    //   numero_de_vizinhos_vivos ++
+    // }
+  }
+  console.log(numero_de_vizinhos_vivos)
   return
 }
   // Esperado do tempo seguinte:
