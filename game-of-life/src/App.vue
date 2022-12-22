@@ -41,7 +41,7 @@ async function inicializa() {
       const promise = new Promise((resolve) => {
         setTimeout(() => {
           resolve(checaQuadrado(linha, coluna, quadradoAtual))
-        }, 10)
+        }, 1)
       })
       await promise.then(response => {
       console.log(response)
@@ -50,7 +50,7 @@ async function inicializa() {
   }
 }
 
-function checaQuadrado(linha, coluna, quadradoAtual) {
+async function checaQuadrado(linha, coluna, quadradoAtual) {
   let vizinhos = []
   let numeroDeVizinhosVivos = 0
   vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna-1).toString()}`)) // N esquerda
@@ -65,17 +65,11 @@ function checaQuadrado(linha, coluna, quadradoAtual) {
   // Vizinhos vivos:
   for (let vizinho of vizinhos) {
     if (vizinho != null) {
-      if (vizinho.className === 'quadrado quadradoAmarelo'){
+      if (vizinho.className === 'quadrado quadradoAmarelo') {
         numeroDeVizinhosVivos = numeroDeVizinhosVivos + 1
       }
     }
   }
-
-  // if (linha == 2 && coluna == 1) {
-  //   // /* eslint-disable no-debugger */
-  //   // debugger
-  //   // /* eslint-enable no-debugger */
-  // }
 
   // Transformação:
   if (quadradoAtual.className === 'quadrado' && numeroDeVizinhosVivos == 3) {
@@ -85,9 +79,32 @@ function checaQuadrado(linha, coluna, quadradoAtual) {
   } else {
     Pra0.push(`${linha}-${coluna}`)
   }
-  console.log("Pra0: " + Pra0) // toString()
-  console.log("Pra1: " + Pra1) // toString()
-  return
+
+  // Pinta tudo:
+  if (linha == 9 && coluna == 9) {
+    for (let linha = 0; linha < 10; linha++) {
+      for (let coluna = 0; coluna < 10; coluna++) {
+        let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`)
+        const promise = new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(pintaQuadrado(linha, coluna, quadradoAtual))
+          }, 1)
+        })
+        await promise.then(response => {
+        console.log(response)
+        })
+      }
+    }
+  }
+}
+
+function pintaQuadrado(linha, coluna, quadradoAtual) {
+  if (Pra1.includes(`${linha}-${coluna}`)) {
+    quadradoAtual.classList.add("quadradoAmarelo")
+  }
+  if (Pra0.includes(`${linha}-${coluna}`)) {
+    quadradoAtual.classList.remove("quadradoAmarelo")
+  }
 }
   // Esperado do tempo seguinte:
   // setTimeout(() => {
@@ -100,6 +117,10 @@ function checaQuadrado(linha, coluna, quadradoAtual) {
   //   let quadradoVivoInicial4 = document.getElementById("4-2")
   //   quadradoVivoInicial4.classList.add("quadradoAmarelo")
   // }, 3000);
+
+  // /* eslint-disable no-debugger */
+  // debugger
+  // /* eslint-enable no-debugger */
 </script>
 
 <style>
