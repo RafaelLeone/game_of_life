@@ -35,8 +35,19 @@ async function inicializa() {
   let quadradoVivoInicial5 = document.getElementById("3-3")
   quadradoVivoInicial5.classList.add("quadradoAmarelo")
 
-  for (let linha = 0; linha < altura; linha++) {
-    for (let coluna = 0; coluna < largura; coluna++) {
+  const promise = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(outraFunction())
+    }, 1000)
+  })
+  await promise.then(response => {
+  console.log(response)
+  })
+}
+
+async function outraFunction () {
+  for (let linha = 0; linha < 10; linha++) {
+    for (let coluna = 0; coluna < 10; coluna++) {
       let quadradoAtual = document.getElementById(`${linha.toString()}-${coluna.toString()}`)
       const promise = new Promise((resolve) => {
         setTimeout(() => {
@@ -104,6 +115,11 @@ function pintaQuadrado(linha, coluna, quadradoAtual) {
   }
   if (Pra0.includes(`${linha}-${coluna}`)) {
     quadradoAtual.classList.remove("quadradoAmarelo")
+  }
+  if (linha == 9 && coluna == 9) {
+    Pra0 = []
+    Pra1 = []
+    outraFunction()
   }
 }
   // Esperado do tempo seguinte:
