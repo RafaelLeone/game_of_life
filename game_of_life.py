@@ -1,6 +1,7 @@
 import numpy
 from time import sleep
 import copy
+import sys
 
 
 # print('linhacoluna')
@@ -19,62 +20,73 @@ import copy
 # [2][0]: 1, [2][1]: 1, [2][2]: 0, [2][3]: 0
 # [3][0]: 0, [3][1]: 0, [3][2]: 0, [3][3]: 0
 
-while True:
-    print('\n')
-    input_do_usuario = input("Insira um número inteiro positivo e maior que zero (que será a largura e altura da matriz:) ")
-    try:
-        input_do_usuario = int(input_do_usuario)
-        if int(input_do_usuario) > 0:
-            TAMANHO_DA_MATRIZ = int(input_do_usuario)
+print('\n')
+input_do_usuario = input("Usar jogo padrão? s/n: ")
+
+if input_do_usuario == 'n':
+    while True:
+        print('\n')
+        input_do_usuario = input("Insira um número inteiro positivo e maior que zero (que será a largura e altura da matriz:) ")
+        try:
+            input_do_usuario = int(input_do_usuario)
+            if int(input_do_usuario) > 0:
+                TAMANHO_DA_MATRIZ = int(input_do_usuario)
+                break
+            else:
+                print("Esse não é um número inteiro positivo maior que zero.")
+        except:
+            print("Esse não é um número inteiro.")
+            continue
+
+    matriz = numpy.zeros((TAMANHO_DA_MATRIZ, TAMANHO_DA_MATRIZ), dtype=numpy.int)
+
+    while True:
+        print('\n')
+        print("Matriz atual: ")
+        print(matriz)
+        print('\n')
+        input_do_usuario = input("Deseja inserir uma célula viva? s/n: ")
+        print('\n')
+        if input_do_usuario == 's':
+            print("Número de linhas: ", TAMANHO_DA_MATRIZ)
+            input_do_usuario = input("Insira o número da linha em que deseja inserir: ")
+            try:
+                linha = int(input_do_usuario) - 1
+            except:
+                print("Entrada inválida.")
+                continue
+            if linha not in range(TAMANHO_DA_MATRIZ):
+                print("Não é um número válido.")
+                continue
+            print("Número de colunas: ", TAMANHO_DA_MATRIZ)
+            input_do_usuario = input("Agora o número da coluna dessa linha: ")
+            try:
+                coluna = int(input_do_usuario) - 1
+            except:
+                print("Entrada inválida.")
+                continue
+            if coluna not in range(TAMANHO_DA_MATRIZ):
+                print("Não é um número válido.")
+                continue
+            matriz[linha][coluna] = 1
+        elif input_do_usuario == 'n':
             break
         else:
-            print("Esse não é um número inteiro positivo maior que zero.")
-    except:
-        print("Esse não é um número inteiro.")
-        continue
-
-matriz = numpy.zeros((TAMANHO_DA_MATRIZ, TAMANHO_DA_MATRIZ), dtype=numpy.int)
-
-while True:
-    print('\n')
-    print("Matriz atual: ")
-    print(matriz)
-    print('\n')
-    input_do_usuario = input("Deseja inserir uma célula viva? s/n: ")
-    print('\n')
-    if input_do_usuario == 's':
-        print("Número de linhas: ", TAMANHO_DA_MATRIZ)
-        input_do_usuario = input("Insira o número da linha em que deseja inserir: ")
-        try:
-            linha = int(input_do_usuario) - 1
-        except:
             print("Entrada inválida.")
-            continue
-        if linha not in range(TAMANHO_DA_MATRIZ):
-            print("Não é um número válido.")
-            continue
-        print("Número de colunas: ", TAMANHO_DA_MATRIZ)
-        input_do_usuario = input("Agora o número da coluna dessa linha: ")
-        try:
-            coluna = int(input_do_usuario) - 1
-        except:
-            print("Entrada inválida.")
-            continue
-        if coluna not in range(TAMANHO_DA_MATRIZ):
-            print("Não é um número válido.")
-            continue
-        matriz[linha][coluna] = 1
-    elif input_do_usuario == 'n':
-        break
-    else:
-        print("Entrada inválida.")
 
+elif input_do_usuario == 's':
 # Matriz inicial padrão do site game of life:
-# matriz[1][2] = 1
-# matriz[2][3] = 1
-# matriz[3][1] = 1
-# matriz[3][2] = 1
-# matriz[3][3] = 1
+    TAMANHO_DA_MATRIZ = 10
+    matriz = numpy.zeros((TAMANHO_DA_MATRIZ, TAMANHO_DA_MATRIZ), dtype=numpy.int)
+    matriz[1][2] = 1
+    matriz[2][3] = 1
+    matriz[3][1] = 1
+    matriz[3][2] = 1
+    matriz[3][3] = 1
+
+else:
+    print("Input inválido. Reinicie o programa.")
+    sys.exit()
 
 print('\n')
 print("tempo 0: ")
