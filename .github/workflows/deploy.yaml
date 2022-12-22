@@ -25,6 +25,7 @@ jobs:
           cd game-of-life
           npm i
           NODE_ENV=production npm run build
+          cd ..
           cd dist
           git init
           git add -A
