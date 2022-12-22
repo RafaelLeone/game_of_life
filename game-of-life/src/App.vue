@@ -41,7 +41,7 @@ async function inicializa() {
       const promise = new Promise((resolve) => {
         setTimeout(() => {
           resolve(checaQuadrado(linha, coluna, quadradoAtual))
-        }, 1000)
+        }, 10)
       })
       await promise.then(response => {
       console.log(response)
@@ -57,33 +57,33 @@ function checaQuadrado(linha, coluna, quadradoAtual) {
   vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna-0).toString()}`)) // N
   vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // N direita
   vizinhos.push(document.getElementById(`${(linha-0).toString()}-${(coluna-1).toString()}`)) // Esquerda
-  vizinhos.push(document.getElementById(`${(linha-1).toString()}-${(coluna+1).toString()}`)) // Direita
+  vizinhos.push(document.getElementById(`${(linha-0).toString()}-${(coluna+1).toString()}`)) // Direita
   vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna-1).toString()}`)) // S esquerda
   vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna-0).toString()}`)) // S
   vizinhos.push(document.getElementById(`${(linha+1).toString()}-${(coluna+1).toString()}`)) // S direita
 
   // Vizinhos vivos:
   for (let vizinho of vizinhos) {
-    /* eslint-disable no-debugger */
-    // debugger
-    /* eslint-enable no-debugger */
     if (vizinho != null) {
       if (vizinho.className === 'quadrado quadradoAmarelo'){
-        numeroDeVizinhosVivos++
+        numeroDeVizinhosVivos = numeroDeVizinhosVivos + 1
       }
     }
   }
 
+  // if (linha == 2 && coluna == 1) {
+  //   // /* eslint-disable no-debugger */
+  //   // debugger
+  //   // /* eslint-enable no-debugger */
+  // }
+
   // Transformação:
   if (quadradoAtual.className === 'quadrado' && numeroDeVizinhosVivos == 3) {
     Pra1.push(`${linha}-${coluna}`)
-    // nova_matriz[linha][coluna] = quadradoAtual.classList.add("quadradoAmarelo") // recebe 1
   } else if ((quadradoAtual.className === 'quadrado quadradoAmarelo' && numeroDeVizinhosVivos == 2) || (quadradoAtual.className === 'quadrado quadradoAmarelo' && numeroDeVizinhosVivos == 3)) {
     Pra1.push(`${linha}-${coluna}`)
-    // nova_matriz[linha][coluna] = quadradoAtual.classList.add("quadradoAmarelo") // recebe 1
   } else {
     Pra0.push(`${linha}-${coluna}`)
-    // nova_matriz[linha][coluna] = quadradoAtual.classList.remove("quadradoAmarelo") // recebe 0
   }
   console.log("Pra0: " + Pra0) // toString()
   console.log("Pra1: " + Pra1) // toString()
